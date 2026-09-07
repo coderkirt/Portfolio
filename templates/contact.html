@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="page-stage wrap">
+  <p class="hero-kicker" data-reveal>Inbox</p>
+  <h1 class="page-title"><span data-letters>Contact</span></h1>
+  <p class="hero-sub" data-reveal>Open to internships, student collaborations, and code review. I usually reply within a day.</p>
+</section>
+
+<div class="contact-layout wrap">
+  <form class="form" method="post" action="{{ url_for('contact') }}" novalidate data-live-form data-reveal>
+    <label>
+      <span>Name</span>
+      <input type="text" name="name" autocomplete="name" required minlength="2" value="{{ form.name or '' }}">
+      <small class="field-msg" data-for="name"></small>
+    </label>
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" autocomplete="email" required value="{{ form.email or '' }}">
+      <small class="field-msg" data-for="email"></small>
+    </label>
+    <label>
+      <span>Subject</span>
+      <input type="text" name="subject" required minlength="3" value="{{ form.subject or '' }}">
+      <small class="field-msg" data-for="subject"></small>
+    </label>
+    <label>
+      <span>Message</span>
+      <textarea name="message" rows="6" required minlength="12">{{ form.message or '' }}</textarea>
+      <small class="field-msg" data-for="message"></small>
+    </label>
+    <button class="btn-line btn-line--solid" type="submit" data-hover>Send message</button>
+  </form>
+
+  <aside class="contact-card" data-reveal>
+    <ul class="contact-lines">
+      <li><span>Email</span><a href="mailto:{{ profile.email }}" data-hover>{{ profile.email }}</a></li>
+      <li><span>GitHub</span><a href="{{ profile.github }}" target="_blank" rel="noopener" data-hover>{{ profile.github | replace('https://', '') }}</a></li>
+      <li><span>LinkedIn</span><a href="{{ profile.linkedin }}" target="_blank" rel="noopener" data-hover>{{ profile.linkedin | replace('https://www.', '') | trim('/') }}</a></li>
+      <li><span>Location</span><p>{{ profile.location }}</p></li>
+    </ul>
+    <p class="muted">{{ profile.availability }}</p>
+  </aside>
+</div>
+{% endblock %}
