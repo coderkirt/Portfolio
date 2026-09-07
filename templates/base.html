@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ profile.name }} — {{ profile.title }}. {{ profile.headline }}">
+  <title>{% block title %}{{ profile.name }}{% endblock %} · Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body data-page="{{ request.endpoint }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="pointer-dot" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="{{ url_for('index') }}" data-hover>{{ profile.name }}</a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      {% for endpoint, label in nav %}
+        <a href="{{ url_for(endpoint) }}" data-hover {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ label }}</a>
+      {% endfor %}
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-hover>Menu</button>
+  </header>
+
+  <main id="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack wrap" role="status">
+          {% for category, message in messages %}
+            <p class="flash flash--{{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer-eyebrow">Next step</p>
+      <a class="footer-cta" href="{{ url_for('contact') }}" data-hover>
+        <span data-letters>Let's talk</span>
+        <span class="footer-arrow">→</span>
+      </a>
+      <div class="footer-meta">
+        <p>
+          <a href="mailto:{{ profile.email }}" data-hover>{{ profile.email }}</a><br>
+          <a href="{{ profile.github }}" target="_blank" rel="noopener" data-hover>GitHub</a> ·
+          <a href="{{ profile.linkedin }}" target="_blank" rel="noopener" data-hover>LinkedIn</a>
+        </p>
+        <p class="muted">{{ profile.availability }}<br>© {{ year }} {{ profile.name }} · Built with Flask</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
