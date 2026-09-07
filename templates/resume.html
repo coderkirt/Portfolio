@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Resume{% endblock %}
+
+{% block content %}
+<section class="page-stage wrap">
+  <p class="hero-kicker" data-reveal>Curriculum vitae</p>
+  <h1 class="page-title"><span data-letters>Resume</span></h1>
+  <p class="hero-sub" data-reveal>{{ profile.title }} · {{ profile.location }} · {{ profile.email }}</p>
+  <button class="btn-line" type="button" data-print data-hover>Print / save PDF</button>
+</section>
+
+<article class="resume wrap">
+  <section class="resume-block" data-reveal>
+    <h2>Profile</h2>
+    <p>{{ profile.summary }}</p>
+  </section>
+
+  <section class="resume-block" data-reveal>
+    <h2>Education</h2>
+    {% for item in education %}
+      <div class="timeline-item">
+        <h3>{{ item.school }}</h3>
+        <p class="muted">{{ item.detail }} · {{ item.dates }}</p>
+        <ul class="case__notes">
+          {% for note in item.notes %}
+            <li>{{ note }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class="resume-block" data-reveal>
+    <h2>Projects &amp; experience</h2>
+    {% for item in experience %}
+      <div class="timeline-item">
+        <h3>{{ item.role }}</h3>
+        <p class="muted">{{ item.org }} · {{ item.dates }}</p>
+        <ul class="case__notes">
+          {% for note in item.notes %}
+            <li>{{ note }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class="resume-block" data-reveal>
+    <h2>Skills</h2>
+    <div class="resume-skills">
+      {% for group in skill_groups %}
+        <div>
+          <h3>{{ group.name }}</h3>
+          <p class="muted">{% for item in group.skills %}{{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</article>
+{% endblock %}
