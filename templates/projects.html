@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<section class="page-stage wrap">
+  <p class="hero-kicker" data-reveal>Selected work</p>
+  <h1 class="page-title"><span data-letters>Projects</span></h1>
+  <p class="hero-sub" data-reveal>Each build has a problem, a stack, and decisions I can explain in an interview.</p>
+</section>
+
+<div class="case-list">
+  {% for project in projects %}
+    <article class="case wrap" id="{{ project.slug }}" data-reveal>
+      <div class="case__head">
+        <span class="case__index">{{ '%02d' % loop.index }}</span>
+        <div>
+          <p class="section-label">{{ project.eyebrow }} · {{ project.year }} · {{ project.status }}</p>
+          <h2>{{ project.title }}</h2>
+        </div>
+      </div>
+      <div class="case__body">
+        {% if project.image %}
+          <figure class="case__figure">
+            <img src="{{ url_for('static', filename=project.image) }}" alt="{{ project.image_alt or project.title }}" loading="lazy">
+          </figure>
+        {% endif %}
+        <p class="case__summary">{{ project.summary }}</p>
+        {% if project.highlights %}
+          <ul class="case__notes">
+            {% for item in project.highlights %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <p class="case__stack">{{ project.stack | join(' · ') }}</p>
+        {% if project.links %}
+          <p class="case__links">
+            {% for link in project.links %}
+              <a href="{{ link.url }}" target="_blank" rel="noopener" data-hover>{{ link.label }} ↗</a>
+            {% endfor %}
+          </p>
+        {% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}
