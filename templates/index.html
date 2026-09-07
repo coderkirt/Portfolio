@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ profile.name }}{% endblock %}
+
+{% block content %}
+<section class="hero-stage">
+  <p class="hero-kicker" data-reveal>{{ profile.title }} — {{ profile.location }}</p>
+  <h1 class="hero-name" aria-label="{{ profile.name }}">
+    <span class="hero-line"><span data-letters>Kirt Raj</span><span class="hero-dot">.</span></span>
+    <span class="hero-line hero-line--outline"><span data-letters>Dixit</span></span>
+  </h1>
+  <p class="hero-sub" data-reveal>{{ profile.headline }}</p>
+  <p class="scroll-hint" data-reveal>Scroll<span class="scroll-hint__bar"></span></p>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {% for i in range(2) %}
+      {% for group in skill_groups %}
+        {% for item in group.skills %}
+          <span>{{ item.name }}</span><em>✦</em>
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <p class="section-label" data-reveal>Selected work</p>
+  </div>
+  {% for project in featured_projects %}
+    <a class="work-panel" href="{{ url_for('projects') }}#{{ project.slug }}" data-hover-big data-reveal>
+      <div class="work-panel__visual work-panel__visual--{{ loop.index }}">
+        {% if project.image %}
+          <img src="{{ url_for('static', filename=project.image) }}" alt="{{ project.image_alt or project.title }}" loading="lazy">
+        {% endif %}
+        <span class="work-panel__index">{{ '%02d' % loop.index }}</span>
+      </div>
+      <div class="work-panel__info">
+        <p class="work-panel__eyebrow">{{ project.eyebrow }}</p>
+        <h2>{{ project.title }}</h2>
+        <p class="work-panel__summary">{{ project.summary }}</p>
+        <p class="work-panel__stack">{{ project.stack[:5] | join(' · ') }}</p>
+        <span class="work-panel__cta">View case <span>→</span></span>
+      </div>
+    </a>
+  {% endfor %}
+</section>
+
+<section class="about wrap">
+  <p class="section-label" data-reveal>About</p>
+  <p class="about-text" data-reveal>{{ profile.summary }}</p>
+  <div class="about-grid">
+    {% for point in about_points %}
+      <div class="about-cell" data-reveal>
+        <p class="about-cell__label">{{ point.label }}</p>
+        <p>{{ point.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="about-track" data-reveal>
+    <p class="section-label">Currently learning</p>
+    <ul>
+      {% for item in learning_track %}
+        <li><span>W{{ item.week }}</span>{{ item.focus }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
