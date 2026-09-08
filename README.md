@@ -48,6 +48,18 @@ Read saved messages:
 python -c "import sqlite3; c=sqlite3.connect('instance/messages.db'); print(c.execute('select id,name,email,subject,created_at from messages').fetchall())"
 ```
 
+## Deployment (Render)
+
+The site runs in production on Render's free tier:
+
+- **Build command:** `pip install -r requirements.txt`
+- **Start command:** `gunicorn app:app` (see `Procfile`)
+- **Environment:** set `SECRET_KEY` to a long random string in the Render dashboard
+
+Every push to `main` on GitHub triggers an automatic redeploy. Note that the
+free tier sleeps after inactivity (first visit takes ~30–60 s to wake) and its
+disk is temporary, so `instance/messages.db` does not survive restarts.
+
 ## Suggested next steps (learning path)
 
 1. Change your real email and social links in `config.py`.
