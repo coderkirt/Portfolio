@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Page not found{% endblock %}
+
+{% block content %}
+<section class="page-stage wrap">
+  <p class="hero-kicker" data-reveal>Error 404</p>
+  <h1 class="page-title"><span data-letters>Lost?</span></h1>
+  <p class="hero-sub" data-reveal>That page does not exist. The links below will get you back on track.</p>
+  <p data-reveal>
+    <a class="btn-line" href="{{ url_for('index') }}" data-hover>Go home</a>
+    <a class="btn-line" href="{{ url_for('projects') }}" data-hover>See projects</a>
+  </p>
+</section>
+{% endblock %}

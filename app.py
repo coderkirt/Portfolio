@@ -168,6 +168,12 @@ def contact():
     return render_template("contact.html", form={})
 
 
+@app.errorhandler(404)
+def not_found(_error):
+    """Friendly page for broken or mistyped URLs."""
+    return render_template("404.html"), 404
+
+
 @app.route("/api/health")
 def health():
     """Tiny JSON endpoint — a first look at APIs before Django REST / DRF."""
