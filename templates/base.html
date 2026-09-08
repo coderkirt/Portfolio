@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ profile.name }} — {{ profile.title }}. {{ profile.headline }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ profile.name }} · Portfolio">
+  <meta property="og:description" content="{{ profile.title }}. {{ profile.headline }}">
+  <meta property="og:image" content="{{ url_for('static', filename='images/phisheye.png', _external=True) }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ profile.name }} · Portfolio">
+  <meta name="twitter:description" content="{{ profile.title }}. {{ profile.headline }}">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
   <title>{% block title %}{{ profile.name }}{% endblock %} · Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
