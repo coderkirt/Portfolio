@@ -119,9 +119,44 @@ if (form) {
     input.addEventListener("input", () => check(input));
   });
 
-  form.addEventListener("submit", (event) => {
+  // Submit to Formspree in the background so the visitor stays on the page.
+  // If fetch is unavailable, the browser falls back to a normal form post.
+  const status = form.querySelector("[data-form-status]");
+  const showStatus = (text, ok) => {
+    if (!status) return;
+    status.textContent = text;
+    status.hidden = false;
+    status.classList.toggle("is-ok", ok);
+  };
+
+  form.addEventListener("submit", async (event) => {
     const fields = [...form.querySelectorAll("input, textarea")];
     const allOk = fields.every((field) => check(field) && field.value.trim());
-    if (!allOk) event.preventDefault();
+    if (!allOk) {
+      event.preventDefault();
+      return;
+    }
+    if (!window.fetch) return;
+    event.preventDefault();
+
+    const button = form.querySelector('button[type="submit"]');
+    if (button) button.disabled = true;
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (response.ok) {
+        form.reset();
+        showStatus("Thanks — your message is on its way. I usually reply within a day.", true);
+      } else {
+        showStatus("Something went wrong. Please email me directly instead.", false);
+      }
+    } catch (error) {
+      showStatus("Network error. Please try again or email me directly.", false);
+    } finally {
+      if (button) button.disabled = false;
+    }
   });
 }
