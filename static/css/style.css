@@ -1,15 +1,31 @@
-:root {
+:root,
+[data-theme="dark"] {
   --bg: #0d0d0f;
   --bg-soft: #141417;
   --text: #f2f0ec;
   --muted: #8f8d88;
   --line: rgba(242, 240, 236, 0.12);
+  --ghost: rgba(242, 240, 236, 0.14);
+  --ghost-strong: rgba(242, 240, 236, 0.3);
   --accent: #e4572e;
   --accent-2: #4d7cfe;
   --accent-3: #2ec4a5;
   --display: "Space Grotesk", "Segoe UI", sans-serif;
   --body: "Inter", -apple-system, sans-serif;
   --max: 1200px;
+}
+
+[data-theme="light"] {
+  --bg: #f2efe8;
+  --bg-soft: #e8e4d9;
+  --text: #17140f;
+  --muted: #6e6a61;
+  --line: rgba(23, 20, 15, 0.14);
+  --ghost: rgba(23, 20, 15, 0.1);
+  --ghost-strong: rgba(23, 20, 15, 0.26);
+  --accent: #d24a22;
+  --accent-2: #3a63d9;
+  --accent-3: #1d9c82;
 }
 
 * {
@@ -28,6 +44,7 @@ body {
   font-size: 1rem;
   line-height: 1.7;
   overflow-x: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 .wrap {
@@ -79,7 +96,8 @@ p:last-child {
   transform: none;
 }
 
-/* Pointer follower */
+/* Pointer follower — fixed light color so the difference blend
+   inverts it correctly on both dark and light themes. */
 .pointer-dot {
   position: fixed;
   top: 0;
@@ -87,7 +105,7 @@ p:last-child {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--text);
+  background: #f2f0ec;
   mix-blend-mode: difference;
   pointer-events: none;
   z-index: 50;
@@ -125,6 +143,16 @@ p:last-child {
   mix-blend-mode: difference;
 }
 
+/* On desktop the header sits in difference blend mode, so its ink must stay
+   light in both themes — the blend inverts it against whatever is behind. */
+@media (min-width: 861px) {
+  .site-header {
+    --text: #f2f0ec;
+    --line: rgba(242, 240, 236, 0.3);
+    color: #f2f0ec;
+  }
+}
+
 .logo {
   font-family: var(--display);
   font-weight: 600;
@@ -156,6 +184,46 @@ p:last-child {
   bottom: -6px;
   height: 1px;
   background: var(--text);
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--display);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--text);
+}
+
+.theme-toggle__dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  border: 1px solid var(--text);
+  background: linear-gradient(90deg, var(--text) 50%, transparent 50%);
+  transition: transform 0.4s ease;
+}
+
+[data-theme="light"] .theme-toggle__dot {
+  transform: rotate(180deg);
 }
 
 .nav-toggle {
@@ -387,7 +455,7 @@ p:last-child {
   font-family: var(--display);
   font-size: clamp(4rem, 9vw, 8rem);
   font-weight: 700;
-  color: rgba(242, 240, 236, 0.14);
+  color: var(--ghost);
   transition: transform 0.5s ease, color 0.4s ease;
 }
 
@@ -402,7 +470,7 @@ p:last-child {
 
 .work-panel:hover .work-panel__index {
   transform: scale(1.12);
-  color: rgba(242, 240, 236, 0.3);
+  color: var(--ghost-strong);
 }
 
 .work-panel__eyebrow {
@@ -547,7 +615,7 @@ p:last-child {
   font-family: var(--display);
   font-size: clamp(2rem, 5vw, 3.6rem);
   font-weight: 700;
-  color: rgba(242, 240, 236, 0.18);
+  color: var(--ghost-strong);
 }
 
 .case__head h2 {
