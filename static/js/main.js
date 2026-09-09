@@ -15,6 +15,25 @@ document.querySelectorAll("[data-print]").forEach((button) => {
   button.addEventListener("click", () => window.print());
 });
 
+// Dark / light theme toggle (saved in localStorage; label shows the target theme)
+const themeToggle = document.querySelector("[data-theme-toggle]");
+if (themeToggle) {
+  const label = themeToggle.querySelector("[data-theme-label]");
+  const apply = (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (error) {}
+    if (label) label.textContent = theme === "dark" ? "Light" : "Dark";
+    themeToggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+  };
+  apply(document.documentElement.getAttribute("data-theme") || "dark");
+  themeToggle.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    apply(current === "dark" ? "light" : "dark");
+  });
+}
+
 // Pointer follower: a small dot that eases toward the pointer and
 // grows over links (difference blend keeps it visible on any color).
 const pointerDot = document.querySelector(".pointer-dot");
