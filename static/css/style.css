@@ -735,6 +735,16 @@ p:last-child {
   font-size: 0.82rem;
 }
 
+.form-status {
+  border: 1px solid var(--accent);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.form-status.is-ok {
+  border-color: var(--accent-3);
+}
+
 .contact-lines {
   list-style: none;
   margin: 0;
