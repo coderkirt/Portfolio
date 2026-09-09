@@ -1,8 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    // Apply the saved theme before the page paints to avoid a flash.
+    (function () {
+      try {
+        var theme = localStorage.getItem("theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+      } catch (error) {}
+    })();
+  </script>
   <meta name="description" content="{{ profile.name }} — {{ profile.title }}. {{ profile.headline }}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ profile.name }} · Portfolio">
@@ -29,7 +41,13 @@
         <a href="{{ url_for(endpoint) }}" data-hover {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ label }}</a>
       {% endfor %}
     </nav>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-hover>Menu</button>
+    <div class="header-tools">
+      <button class="theme-toggle" type="button" data-theme-toggle data-hover aria-label="Switch between dark and light theme">
+        <span class="theme-toggle__dot" aria-hidden="true"></span>
+        <span data-theme-label>Light</span>
+      </button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-hover>Menu</button>
+    </div>
   </header>
 
   <main id="main">
