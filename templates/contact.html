@@ -9,7 +9,7 @@
 </section>
 
 <div class="contact-layout wrap">
-  <form class="form" method="post" action="{{ url_for('contact') }}" novalidate data-live-form data-reveal>
+  <form class="form" method="post" action="https://formspree.io/f/mdeoydwz" novalidate data-live-form data-reveal>
     <label>
       <span>Name</span>
       <input type="text" name="name" autocomplete="name" required minlength="2" value="{{ form.name or '' }}">
@@ -31,6 +31,7 @@
       <small class="field-msg" data-for="message"></small>
     </label>
     <button class="btn-line btn-line--solid" type="submit" data-hover>Send message</button>
+    <p class="form-status" data-form-status role="status" hidden></p>
   </form>
 
   <aside class="contact-card" data-reveal>
