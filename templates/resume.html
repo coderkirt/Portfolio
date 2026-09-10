@@ -6,7 +6,10 @@
   <p class="hero-kicker" data-reveal>Curriculum vitae</p>
   <h1 class="page-title"><span data-letters>Resume</span></h1>
   <p class="hero-sub" data-reveal>{{ profile.title }} · {{ profile.location }} · {{ profile.email }}</p>
-  <button class="btn-line" type="button" data-print data-hover>Print / save PDF</button>
+  <p data-reveal>
+    <a class="btn-line btn-line--solid" href="{{ url_for('static', filename='files/Kirt_Raj_Dixit_Resume.docx') }}" download data-hover>Download resume</a>
+    <button class="btn-line" type="button" data-print data-hover>Print / save PDF</button>
+  </p>
 </section>
 
 <article class="resume wrap">
