@@ -1,5 +1,7 @@
 .venv/
 venv/
+*.docx
+!static/files/Kirt_Raj_Dixit_Resume.docx
 __pycache__/
 *.py[cod]
 instance/
