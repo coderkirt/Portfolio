@@ -186,8 +186,8 @@ PROJECTS = [
         "eyebrow": "IoT · Embedded · Hardware",
         "status": "Complete",
         "year": "2025",
-        "image": "images/smarty-iot.png",
-        "image_alt": "Smarty IoT security prototype — laser tripwire across a doorway wired to a microcontroller and buzzer, with an alert notification on a phone",
+        "image": "images/smarty-iot.jpg",
+        "image_alt": "IoT security prototype in a wooden box: NodeMCU, PIR sensor, laser and LDR receiver, buzzer, status LED, ESP32-CAM, and a 5V supply on a breadboard",
         "summary": (
             "A laser + PIR + ESP32-CAM based intrusion system that detects human presence. "
             "When the laser beam is broken, the system sends an alert signal to the user and "
