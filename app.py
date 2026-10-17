@@ -28,8 +28,11 @@ from config import (
     ABOUT_POINTS,
     EDUCATION,
     EXPERIENCE,
+    CHAPTERS,
+    CODE_SPOTLIGHT,
     LEARNING_TRACK,
     PROFILE,
+    TIMELINE,
     PROJECTS,
     SKILL_GROUPS,
 )
@@ -94,6 +97,9 @@ def template_globals() -> dict:
             ("contact", "Contact"),
         ],
         "featured_projects": featured,
+        "timeline": TIMELINE,
+        "chapters": CHAPTERS,
+        "code_spotlight": CODE_SPOTLIGHT,
     }
 
 

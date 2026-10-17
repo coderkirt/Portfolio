@@ -10,6 +10,118 @@ if (header && navToggle) {
   });
 }
 
+// Chapter reader: pick a chapter, or step with previous / next.
+const origins = document.querySelector("[data-origins]");
+if (origins) {
+  const tabs = [...origins.querySelectorAll("[data-origins-tab]")];
+  const panels = [...origins.querySelectorAll("[data-origins-panel]")];
+  const indexLabel = origins.querySelector("[data-origins-index]");
+  const bar = origins.querySelector("[data-origins-bar]");
+  const prevButton = origins.querySelector("[data-origins-prev]");
+  const nextButton = origins.querySelector("[data-origins-next]");
+  const chapterList = origins.querySelector(".origins__chapters");
+  const openButton = origins.querySelector("[data-origins-open]");
+  const card = origins.querySelector("[data-origins-card]");
+  const closeButtons = [...origins.querySelectorAll("[data-origins-close]")];
+  const backdrop = origins.querySelector("[data-origins-backdrop]");
+  let index = 0;
+
+  const show = (target) => {
+    index = Math.max(0, Math.min(tabs.length - 1, target));
+    tabs.forEach((tab, i) => {
+      const on = i === index;
+      tab.setAttribute("aria-selected", String(on));
+      tab.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach((panel, i) => {
+      panel.hidden = i !== index;
+    });
+    if (indexLabel) indexLabel.textContent = String(index + 1).padStart(2, "0");
+    if (bar) bar.style.transform = `scaleX(${(index + 1) / tabs.length})`;
+    if (prevButton) prevButton.disabled = index === 0;
+    if (nextButton) nextButton.disabled = index === tabs.length - 1;
+    const tab = tabs[index];
+    if (chapterList && tab && chapterList.scrollWidth > chapterList.clientWidth) {
+      chapterList.scrollTo({
+        left: tab.offsetLeft - 12,
+        behavior: reducedMotion ? "auto" : "smooth",
+      });
+    }
+  };
+
+  const setOpen = (open) => {
+    if (!card || !openButton) return;
+    card.hidden = !open;
+    openButton.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("origins-open", open);
+    if (!open) return;
+    show(0);
+    const timelineTab = tabs[0];
+    if (timelineTab) timelineTab.focus();
+  };
+
+  tabs.forEach((tab, i) => tab.addEventListener("click", () => show(i)));
+  if (prevButton) prevButton.addEventListener("click", () => show(index - 1));
+  if (nextButton) nextButton.addEventListener("click", () => show(index + 1));
+  if (openButton) {
+    openButton.addEventListener("click", () => setOpen(card.hidden));
+  }
+  const shut = () => {
+    setOpen(false);
+    openButton.focus();
+  };
+  closeButtons.forEach((button) => button.addEventListener("click", shut));
+  if (backdrop) backdrop.addEventListener("click", shut);
+
+  origins.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && card && !card.hidden) {
+      event.preventDefault();
+      setOpen(false);
+      openButton.focus();
+      return;
+    }
+    if (!event.target.closest("[data-origins-tab], [data-origins-prev], [data-origins-next]")) return;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      show(index + 1);
+      tabs[index].focus();
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      show(index - 1);
+      tabs[index].focus();
+    }
+  });
+
+  show(0);
+}
+
+const codeStage = document.querySelector("[data-code-stage]");
+if (codeStage) {
+  const picks = [...codeStage.querySelectorAll("[data-code-pick]")];
+  const pieces = [...codeStage.querySelectorAll("[data-code-piece]")];
+  const showPiece = (target) => {
+    const next = Math.max(0, Math.min(pieces.length - 1, target));
+    picks.forEach((pick, i) => pick.setAttribute("aria-pressed", String(i === next)));
+    pieces.forEach((piece, i) => {
+      piece.hidden = i !== next;
+    });
+  };
+  picks.forEach((pick, i) => pick.addEventListener("click", () => showPiece(i)));
+  codeStage.addEventListener("keydown", (event) => {
+    if (!event.target.closest("[data-code-pick]")) return;
+    const current = picks.findIndex((pick) => pick.getAttribute("aria-pressed") === "true");
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showPiece(current + 1);
+      picks[Math.min(pieces.length - 1, current + 1)].focus();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPiece(current - 1);
+      picks[Math.max(0, current - 1)].focus();
+    }
+  });
+}
+
 // Print button (resume)
 document.querySelectorAll("[data-print]").forEach((button) => {
   button.addEventListener("click", () => window.print());

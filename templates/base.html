@@ -82,6 +82,101 @@
     </div>
   </footer>
 
+  <div class="origins" id="timeline" data-origins>
+    <button class="origins__open" type="button" data-origins-open aria-expanded="false" aria-controls="timeline-panel" data-hover>Timeline</button>
+    <div class="origins__popup" id="timeline-panel" data-origins-card hidden>
+      <div class="origins__backdrop" data-origins-backdrop></div>
+      <div class="origins__card" role="dialog" aria-modal="true" aria-label="Timeline">
+        <div class="origins__bar">
+          <p><span data-origins-index>01</span> <span class="muted">/ {{ '%02d' % chapters|length }}</span></p>
+          <div class="origins__progress" aria-hidden="true"><span data-origins-bar></span></div>
+          <button class="origins__close" type="button" data-origins-close data-hover>Close</button>
+        </div>
+        <div class="origins__body">
+          <div class="origins__chapters" role="tablist" aria-label="Chapters">
+            <p class="origins__label">Chapters</p>
+            {% for chapter in chapters %}
+              <button
+                type="button"
+                role="tab"
+                id="origin-tab-{{ loop.index }}"
+                data-origins-tab
+                aria-controls="origin-panel-{{ loop.index }}"
+                aria-selected="{{ 'true' if loop.first else 'false' }}"
+                tabindex="{{ 0 if loop.first else -1 }}"
+              >
+                <span>{{ '%02d' % loop.index }}</span>{{ chapter.title }}
+              </button>
+            {% endfor %}
+          </div>
+          <div class="origins__stage">
+            {% for chapter in chapters %}
+              <div
+                role="tabpanel"
+                id="origin-panel-{{ loop.index }}"
+                aria-labelledby="origin-tab-{{ loop.index }}"
+                data-origins-panel
+                {% if not loop.first %}hidden{% endif %}
+              >
+                <h2>{{ chapter.title }}</h2>
+                <p class="origins__kicker">{{ chapter.kicker }}</p>
+                {% if chapter.kind == "timeline" %}
+                  <ol class="path-list">
+                    {% for item in timeline %}
+                      <li class="path-item">
+                        <p class="path-when">{{ item.when }}</p>
+                        <div class="path-body">
+                          <h3>{{ item.title }}</h3>
+                          <p>{{ item.text }}</p>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ol>
+                {% elif chapter.kind == "code" %}
+                  <div class="code-stage" data-code-stage>
+                    <div class="code-stage__picks" role="group" aria-label="Famous programs">
+                      {% for piece in code_spotlight %}
+                        <button type="button" data-code-pick aria-pressed="{{ 'true' if loop.first else 'false' }}">
+                          <span>{{ piece.year }}</span>{{ piece.author }}
+                        </button>
+                      {% endfor %}
+                    </div>
+                    {% for piece in code_spotlight %}
+                      <article class="code-piece" data-code-piece {% if not loop.first %}hidden{% endif %}>
+                        <p class="code-piece__year" aria-hidden="true">{{ piece.year }}</p>
+                        <p class="code-piece__lang">{{ piece.lang }} · not my code</p>
+                        <h3>{{ piece.title }}</h3>
+                        <p class="code-piece__credit">{{ piece.credit }}</p>
+                        <p class="code-piece__note">{{ piece.note }}</p>
+                        <pre class="code-piece__src"><code>{{ piece.code }}</code><i class="code-piece__caret" aria-hidden="true"></i></pre>
+                      </article>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <ol class="path-list">
+                    {% for item in chapter.entries %}
+                      <li class="path-item">
+                        <p class="path-when">{{ item.when }}</p>
+                        <div class="path-body">
+                          <h3>{{ item.title }}</h3>
+                          <p>{{ item.text }}</p>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ol>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="origins__foot">
+          <button type="button" data-origins-prev disabled>← Previous</button>
+          <button type="button" data-origins-next>Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

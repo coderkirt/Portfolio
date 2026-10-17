@@ -258,6 +258,209 @@ EXPERIENCE = [
     },
 ]
 
+# Dates and grades below are taken from the posted resume PDF.
+# Class 10 and Class 12 years are not printed on that file, so those
+# entries are labeled by class rather than an assumed calendar year.
+TIMELINE = [
+    {
+        "when": "Class 10",
+        "title": "High school",
+        "text": (
+            "Kendriya Vidyalaya Aliganj, Lucknow. Finished Class 10 with 86%."
+        ),
+        "code_by": "Brian Kernighan, with Dennis Ritchie — the first program in The C Programming Language, 1978. Not my code.",
+        "code": 'main()\n{\n    printf("hello, world\\n");\n}',
+    },
+    {
+        "when": "Class 12",
+        "title": "Senior secondary",
+        "text": (
+            "Kendriya Vidyalaya Aliganj, Lucknow. Finished Class 12 with 83%."
+        ),
+    },
+    {
+        "when": "2024",
+        "title": "B.Tech, Computer Science",
+        "text": (
+            "PSIT, Kanpur. Started January 2024, through January 2028. "
+            "First-year CGPA 8.56/10."
+        ),
+        "code_by": "Linus Torvalds, 2000, on the Linux kernel mailing list. Not my code.",
+        "code": "Talk is cheap.\nShow me the code.",
+    },
+    {
+        "when": "First year",
+        "title": "Three projects",
+        "text": (
+            "TrashTrack, a pothole detector that logs damage and forwards complaints to Nagar Nigam. "
+            "An IoT laser security system on Arduino that captures a photo and alerts the owner when the beam breaks. "
+            "A JavaScript browser extension that checks URLs and warns before a phishing site."
+        ),
+        "code_by": "Blink — the first sketch in the Arduino documentation. The same shape as the laser system: a pin changes, and something answers. Not my code.",
+        "code": (
+            "void setup() {\n"
+            "  pinMode(LED_BUILTIN, OUTPUT);\n"
+            "}\n"
+            "\n"
+            "void loop() {\n"
+            "  digitalWrite(LED_BUILTIN, HIGH);\n"
+            "  delay(1000);\n"
+            "  digitalWrite(LED_BUILTIN, LOW);\n"
+            "  delay(1000);\n"
+            "}"
+        ),
+    },
+    {
+        "when": "Certificates",
+        "title": "Python and Claude Code",
+        "text": "Python Advanced from CodeWithHarry. Claude Code 101 from Anthropic.",
+    },
+    {
+        "when": "2026",
+        "title": "Campus, hackathons, outreach",
+        "text": (
+            "First-Year Promotional Head for IGNITA 2K26. "
+            "Selected for the college team at Smart India Hackathon 2026. "
+            "Participated in the MOSIP Decode hackathon at the Digital Governance Summit 2026."
+        ),
+    },
+]
+
+# Interactive chapter reader on the home page. Facts match the posted resume.
+CHAPTERS = [
+    {
+        "title": "Timeline",
+        "kicker": "A chronological journey",
+        "kind": "timeline",
+    },
+    {
+        "title": "Education",
+        "kicker": "School, then college",
+        "entries": [
+            {
+                "when": "Class 10",
+                "title": "Kendriya Vidyalaya Aliganj",
+                "text": "Lucknow. High school, 86%.",
+            },
+            {
+                "when": "Class 12",
+                "title": "Kendriya Vidyalaya Aliganj",
+                "text": "Lucknow. Senior secondary, 83%.",
+            },
+            {
+                "when": "2024–2028",
+                "title": "PSIT, Kanpur",
+                "text": "B.Tech in Computer Science & Engineering. First-year CGPA 8.56/10.",
+            },
+        ],
+    },
+    {
+        "title": "Projects",
+        "kicker": "Three builds from the first year",
+        "entries": [
+            {
+                "when": "Python",
+                "title": "TrashTrack",
+                "text": "Pothole and road-damage detection from images and sensors, with a report path into Nagar Nigam.",
+            },
+            {
+                "when": "IoT",
+                "title": "Laser security system",
+                "text": "Arduino intrusion detector. A broken laser beam triggers a camera and a photo alert to the owner.",
+            },
+            {
+                "when": "JavaScript",
+                "title": "Phishing extension",
+                "text": "A browser extension that checks the URL in real time and warns before a suspicious site.",
+            },
+        ],
+    },
+    {
+        "title": "Campus",
+        "kicker": "2026",
+        "entries": [
+            {
+                "when": "IGNITA",
+                "title": "First-Year Promotional Head",
+                "text": "Promoted IGNITA 2K26 to first-year students and coordinated outreach with the organizing team.",
+            },
+            {
+                "when": "SIH",
+                "title": "Smart India Hackathon",
+                "text": "Selected for the college team at Smart India Hackathon 2026.",
+            },
+            {
+                "when": "MOSIP",
+                "title": "Decode hackathon",
+                "text": "Participated in MOSIP Decode at the Digital Governance Summit 2026.",
+            },
+        ],
+    },
+    {
+        "title": "Now",
+        "kicker": "Second year",
+        "entries": [
+            {
+                "when": "Study",
+                "title": "Computer science at PSIT",
+                "text": "Second-year B.Tech. Coursework plus Flask, Django, SQL, and the projects on this site.",
+            },
+            {
+                "when": "Next",
+                "title": "Open to an internship",
+                "text": "Looking for a software engineering internship where I can ship a small, real feature.",
+            },
+        ],
+    },
+    {
+        "title": "Code",
+        "kicker": "A first program, a quote, and a blink",
+        "kind": "code",
+    },
+]
+
+# Famous programs shown in the Code chapter. None of this is my work.
+CODE_SPOTLIGHT = [
+    {
+        "author": "Kernighan",
+        "credit": "Brian Kernighan, with Dennis Ritchie",
+        "year": "1978",
+        "lang": "C",
+        "title": "hello, world",
+        "note": "The first program in The C Programming Language. Four lines, and people are still starting here.",
+        "code": 'main()\n{\n    printf("hello, world\\n");\n}',
+    },
+    {
+        "author": "Linus",
+        "credit": "Linus Torvalds",
+        "year": "2000",
+        "lang": "Quote",
+        "title": "Show me the code",
+        "note": "Written on the Linux kernel mailing list. Two sentences, and the argument is over.",
+        "code": "Talk is cheap.\nShow me the code.",
+    },
+    {
+        "author": "Arduino",
+        "credit": "The Blink sketch, from the Arduino documentation",
+        "year": "2005",
+        "lang": "C++",
+        "title": "Blink",
+        "note": "A pin goes high, then low. The laser system is the same idea: a signal changes, and something answers.",
+        "code": (
+            "void setup() {\n"
+            "  pinMode(LED_BUILTIN, OUTPUT);\n"
+            "}\n"
+            "\n"
+            "void loop() {\n"
+            "  digitalWrite(LED_BUILTIN, HIGH);\n"
+            "  delay(1000);\n"
+            "  digitalWrite(LED_BUILTIN, LOW);\n"
+            "  delay(1000);\n"
+            "}"
+        ),
+    },
+]
+
 LEARNING_TRACK = [
     {"week": "1–2", "focus": "Flask routes, templates, static files, and this site"},
     {"week": "3–4", "focus": "Forms, validation, SQLite, and a simple REST endpoint"},

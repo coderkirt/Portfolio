@@ -18,34 +18,25 @@
     <p>{{ profile.summary }}</p>
   </section>
 
-  <section class="resume-block" data-reveal>
-    <h2>Education</h2>
-    {% for item in education %}
-      <div class="timeline-item">
-        <h3>{{ item.school }}</h3>
-        <p class="muted">{{ item.detail }} · {{ item.dates }}</p>
-        <ul class="case__notes">
-          {% for note in item.notes %}
-            <li>{{ note }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
-  </section>
-
-  <section class="resume-block" data-reveal>
-    <h2>Projects &amp; experience</h2>
-    {% for item in experience %}
-      <div class="timeline-item">
-        <h3>{{ item.role }}</h3>
-        <p class="muted">{{ item.org }} · {{ item.dates }}</p>
-        <ul class="case__notes">
-          {% for note in item.notes %}
-            <li>{{ note }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
+  <section class="resume-block">
+    <h2>Timeline</h2>
+    <ol class="path-list">
+      {% for item in timeline %}
+        <li class="path-item" data-reveal>
+          <p class="path-when">{{ item.when }}</p>
+          <div class="path-body">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+            {% if item.code %}
+              <figure class="path-code">
+                <figcaption>{{ item.code_by }}</figcaption>
+                <pre><code>{{ item.code }}</code></pre>
+              </figure>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
   </section>
 
   <section class="resume-block" data-reveal>
