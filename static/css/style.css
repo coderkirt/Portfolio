@@ -434,6 +434,13 @@ p:last-child {
     var(--bg-soft);
 }
 
+.work-panel__visual--5 {
+  background:
+    radial-gradient(120% 120% at 18% 18%, rgba(77, 124, 254, 0.45), transparent 55%),
+    radial-gradient(100% 100% at 82% 82%, rgba(77, 124, 254, 0.2), transparent 50%),
+    var(--bg-soft);
+}
+
 .work-panel__visual img {
   position: absolute;
   inset: 0;

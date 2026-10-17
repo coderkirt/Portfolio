@@ -112,7 +112,10 @@ PROJECTS = [
             "Honest threat model: scores are evidence fusion, not calibrated fraud probability",
         ],
         "stack": ["Python", "FastAPI", "SQLite", "React", "Chrome Extension APIs", "JavaScript"],
-        "links": [{"label": "GitHub", "url": "https://github.com/coderkirt/SIH-1454-Phishing-Domain-Detection"}],
+        "links": [
+            {"label": "Live", "url": "https://phisheye-web-fhn5.onrender.com/"},
+            {"label": "GitHub", "url": "https://github.com/coderkirt/SIH-1454-Phishing-Domain-Detection"},
+        ],
         "featured": True,
     },
     {
@@ -201,6 +204,31 @@ PROJECTS = [
         ],
         "stack": ["ESP32-CAM", "PIR sensor", "Laser tripwire", "Buzzer alarm", "C++"],
         "links": [{"label": "GitHub", "url": "https://github.com/coderkirt/Smart-IoT-Security-System"}],
+        "featured": True,
+    },
+    {
+        "slug": "fundmatch",
+        "title": "FundMatch",
+        "eyebrow": "AI · Government schemes · Startups",
+        "status": "Active",
+        "year": "2026",
+        "image": "images/fundmatch.png",
+        "image_alt": "FundMatch dashboard showing relevant schemes, eligibility, and funding sought for a startup",
+        "summary": (
+            "An AI-powered platform that helps a startup find government schemes it can actually apply for. "
+            "It reads the startup's story, onboarding form, and website, then scores official schemes for fit and eligibility."
+        ),
+        "highlights": [
+            "Builds a picture of the startup from its story, onboarding answers, and website",
+            "Classifies sector, stage, location, technology, funding needs, and future plans",
+            "Pulls and processes scheme information from official government sources",
+            "Returns the full set of relevant schemes, scored for match and eligibility, rather than a fixed list",
+        ],
+        "stack": ["AI classification", "Eligibility matching", "Official scheme data", "Web dashboard"],
+        "links": [
+            {"label": "Live", "url": "https://fundmatch-web.onrender.com/"},
+            {"label": "Backend", "url": "https://fundmatch-api.onrender.com/health"},
+        ],
         "featured": True,
     },
     {
