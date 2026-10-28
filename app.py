@@ -180,6 +180,51 @@ def not_found(_error):
     return render_template("404.html"), 404
 
 
+@app.route("/api/github-heatmap")
+def github_heatmap():
+    """
+    Proxy GitHub's contribution graph for the configured username.
+    Scrapes the SVG-based contribution data from GitHub's public API.
+    Returns a JSON list of {date, count} objects for the last year.
+    """
+    import urllib.request
+    import json
+    import re
+
+    username = PROFILE.get("github", "").rstrip("/").split("/")[-1]
+    url = f"https://github.com/users/{username}/contributions"
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={"User-Agent": "Mozilla/5.0 (portfolio heatmap)"},
+        )
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+        # Extract all <td ... data-date="YYYY-MM-DD" ... data-level="N">
+        pattern = r'data-date="(\d{4}-\d{2}-\d{2})"[^>]*data-level="(\d+)"'
+        matches = re.findall(pattern, html)
+        if not matches:
+            # Fallback: try the reversed attribute order
+            pattern = r'data-level="(\d+)"[^>]*data-date="(\d{4}-\d{2}-\d{2})"'
+            matches = [(d, lv) for lv, d in re.findall(pattern, html)]
+
+        # Try to also grab tooltip counts
+        count_pattern = r'data-date="(\d{4}-\d{2}-\d{2})"[^>]*data-count="(\d+)"'
+        count_matches = dict(re.findall(count_pattern, html))
+
+        result = []
+        for date, level in matches:
+            result.append({
+                "date": date,
+                "level": int(level),
+                "count": int(count_matches.get(date, level)),
+            })
+        result.sort(key=lambda x: x["date"])
+        return {"ok": True, "username": username, "data": result}
+    except Exception as exc:
+        return {"ok": False, "error": str(exc), "data": []}, 502
+
+
 @app.route("/api/health")
 def health():
     """Tiny JSON endpoint — a first look at APIs before Django REST / DRF."""
