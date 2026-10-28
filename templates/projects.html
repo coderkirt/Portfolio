@@ -44,4 +44,13 @@
     </article>
   {% endfor %}
 </div>
+
+{# -- GitHub Commit Heatmap -- #}
+<section class="heatmap-section" id="activity" data-reveal>
+  <div id="gh-heatmap"></div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/heatmap.js') }}"></script>
 {% endblock %}
